@@ -14,7 +14,6 @@ runs:
   steps:
     - if: ${{ inputs.who-to-greet != 'Angus' }}
       run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
     - if: ${{ inputs.who-to-greet == 'Angus' }}
       id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
