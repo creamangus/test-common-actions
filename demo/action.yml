@@ -12,9 +12,11 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - if: ${{ inputs.who-to-greet != 'Angus' }}
+      run: echo Hello ${{ inputs.who-to-greet }}.
       shell: bash
-    - id: random-number-generator
+    - if: ${{ inputs.who-to-greet == 'Angus' }}
+      id: random-number-generator
       run: echo "::set-output name=random-id::$(echo $RANDOM)"
       shell: bash
     - run: chmod +x ${{ github.action_path }}/goodbye.sh
