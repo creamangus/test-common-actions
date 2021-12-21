@@ -3,8 +3,8 @@ description: 'Maven build'
 inputs:
   build-env:
     description: 'maven build for what env'
-    required: true
-    default: 'dev'
+    required: false
+    default: ''
 
 runs:
   using: "composite"
@@ -12,5 +12,8 @@ runs:
     - env:
       MAVEN_USERNAME: ${{ secrets.CVP_MAVEN_USERNAME }}
       MAVEN_PASSWORD: ${{ secrets.CVP_MAVEN_PASSWORD }}
+    - if: ${{ inputs.build-env != '' }}
+      run: mvn -s settings.xml clean install -P${{ inputs.build-env }}
+      shell: bash
     - run: mvn -s settings.xml clean install -P
       shell: bash

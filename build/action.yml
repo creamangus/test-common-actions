@@ -1,10 +1,10 @@
-name: 'Build'
-description: 'Maven build'
+name: 'Build Test'
+description: 'Build Test'
 inputs:
   who-to-greet:  # id of input
     description: 'Who to greet'
     required: true
-    default: 'World'
+    default: 'dev'
 outputs:
   random-number:
     description: "Random number"
@@ -12,12 +12,9 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - if: ${{ inputs.who-to-greet != '' }}
+      run: mvn clean install -P${{ inputs.who-to-greet }}
       shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
-    - run: chmod +x ${{ github.action_path }}/build.sh
-      shell: bash
-    - run: ${{ github.action_path }}/build.sh
+    - if: ${{ inputs.who-to-greet == '' }}
+      run: mvn clean install
       shell: bash
