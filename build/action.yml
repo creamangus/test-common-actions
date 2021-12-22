@@ -1,20 +1,13 @@
-name: 'Build Test'
-description: 'Build Test'
+name: 'Maven Build'
+description: 'Maven build'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'dev'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+  build-env:
+    description: 'maven build for what env'
+    required: false
+    default: ''
+
 runs:
   using: "composite"
   steps:
-    - if: ${{ inputs.who-to-greet != '' }}
-      run: mvn clean install -P${{ inputs.who-to-greet }}
-      shell: bash
-    - if: ${{ inputs.who-to-greet == '' }}
-      run: mvn clean install
+    - run: echo env ${{ inputs.build-env }}.
       shell: bash

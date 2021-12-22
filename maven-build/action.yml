@@ -15,5 +15,6 @@ runs:
     - if: ${{ inputs.build-env != '' }}
       run: mvn -s settings.xml clean install -P${{ inputs.build-env }}
       shell: bash
-    - run: mvn -s settings.xml clean install -P
+    - if: ${{ inputs.build-env == '' }}
+      run: mvn -s settings.xml clean install
       shell: bash

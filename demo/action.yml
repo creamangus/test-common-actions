@@ -1,23 +1,27 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Test Demo Action'
+description: 'Test Demo Action'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  param1:
+    description: 'Parameter 1'
+    required: true
+    default: 'Hello'
+  param2:
+    description: 'Parameter 2'
     required: true
     default: 'World'
 outputs:
-  random-number:
+  info:
     description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+    value: ${{ steps.output-info.outputs.info }}
 runs:
   using: "composite"
   steps:
-    - if: ${{ inputs.who-to-greet != 'Angus' }}
-      run: echo Hello ${{ inputs.who-to-greet }}.
+    - run: echo Parameter 1 ${{ inputs.param1 }}.
       shell: bash
-    - if: ${{ inputs.who-to-greet == 'Angus' }}
-      id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+    - run: echo Parameter 2 ${{ inputs.param2 }}.
+      shell: bash
+    - id: output-info
+      run: echo "::set-output name=info::$(echo ${{inputs.param1}} ${{inputs.param2}})"
       shell: bash
     - run: chmod +x ${{ github.action_path }}/goodbye.sh
       shell: bash
