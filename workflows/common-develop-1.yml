@@ -1,0 +1,27 @@
+name: Test Common Develop Workflow 1
+
+on:
+  workflow_call:
+    inputs:
+      param1:
+        required: true
+        type: string
+      param2:
+        required: true
+        type: string
+
+jobs:
+  demo_job:
+    runs-on: ubuntu-latest
+    name: Test invoke Demo action
+    steps:
+      - uses: actions/checkout@v2
+      - id: demo-action-output
+        uses: creamangus/test-common-actions/demo@v15
+        with:
+          param1: ${{ inputs.param1 }}
+          param2: ${{ inputs.param2 }}
+      - run: echo info ${{ steps.demo-action-output.outputs.info }}
+        shell: bash
+      - run: echo "Test common develop 1 end"
+        shell: bash

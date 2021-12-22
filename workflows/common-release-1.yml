@@ -1,0 +1,20 @@
+name: Test Common Release Workflow 1
+
+on:
+  workflow_call:
+    inputs:
+      build-env:
+        required: true
+        type: string
+
+jobs:
+  build_job:
+    runs-on: ubuntu-latest
+    name: Test invoke Build action
+    steps:
+      - uses: actions/checkout@v2
+      - uses: creamangus/test-common-actions/build@v15
+        with:
+          build-env: ${{ inputs.build-env }}
+      - run: echo "Test common release end"
+        shell: bash
