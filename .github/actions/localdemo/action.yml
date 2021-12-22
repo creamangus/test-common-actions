@@ -1,0 +1,29 @@
+name: 'Test Demo Action in .github'
+description: 'Test Demo Action in .github'
+inputs:
+  param1:
+    description: 'Parameter 1'
+    required: true
+    default: 'Hello'
+  param2:
+    description: 'Parameter 2'
+    required: true
+    default: 'World'
+outputs:
+  info:
+    description: "Output info"
+    value: ${{ steps.output-info.outputs.info }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo Parameter 1 ${{ inputs.param1 }}.
+      shell: bash
+    - run: echo Parameter 2 ${{ inputs.param2 }}.
+      shell: bash
+    - id: output-info
+      run: echo "::set-output name=info::$(echo ${{inputs.param1}} ${{inputs.param2}})"
+      shell: bash
+    - run: chmod +x ${{ github.action_path }}/goodbye.sh
+      shell: bash
+    - run: ${{ github.action_path }}/goodbye.sh
+      shell: bash

@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: demo-action-output
-        uses: ./demo@v9
+        uses: ./.github/actions/localdemo
         with:
           param1: ${{ inputs.param1 }}
           param2: ${{ inputs.param2 }}
