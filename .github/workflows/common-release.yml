@@ -13,7 +13,7 @@ jobs:
     name: Test invoke Build action
     steps:
       - uses: actions/checkout@v2
-      - uses: ./build@v8
+      - uses: creamangus/test-common-actions/build@v9
         with:
           build-env: ${{ inputs.build-env }}
       - run: echo "Test common release end"

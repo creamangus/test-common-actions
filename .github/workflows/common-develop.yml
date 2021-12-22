@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: demo-action-output
-        uses: ./demo@v8
+        uses: creamangus/test-common-actions/demo@v9
         with:
           param1: ${{ inputs.param1 }}
           param2: ${{ inputs.param2 }}
